@@ -92,6 +92,7 @@ When a test fails, please adhere to the following process:
 - When presenting the plan, provide a step-by-step breakdown of all files to be created or modified
 - Ask directly: "Do you approve this plan before I proceed with implementation?"
 - When the prompt involves changes to the code, always check for existing tests and the documentation and update them accordingly
+- Dont create md files every time you add a new dependency
 
 **These rules are universal and override any conflicting instructions unless explicitly stated otherwise.**
 
@@ -103,12 +104,14 @@ When a test fails, please adhere to the following process:
 ## Dependencies
 
 ### Production Dependencies
+
 - **express** (v5.1.0) - Web framework for Node.js
 - **mongoose** - MongoDB ODM for database operations and schema validation
 - **axios** - HTTP client for making external API requests
 - **dotenv** - Environment variable management
 
 ### Development Dependencies
+
 - **nodemon** - Auto-reload server during development
 - **@types/node** - TypeScript type definitions for Node.js
 - **@types/express** - TypeScript type definitions for Express

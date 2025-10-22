@@ -1,7 +1,7 @@
-require('dotenv').config();
-const express = require('express');
-const connectDB = require('./src/config/database');
-const routes = require('./src/routes');
+import 'dotenv/config';
+import express, { Request, Response, NextFunction } from 'express';
+import connectDB from './src/config/database';
+import routes from './src/routes';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Rutas principales
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   res.json({
     message: '¡Bienvenido a si-api!',
     status: 'OK',
@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/health', (req, res) => {
+app.get('/health', (req: Request, res: Response) => {
   res.json({
     status: 'healthy',
     uptime: process.uptime(),
@@ -34,7 +34,7 @@ app.get('/health', (req, res) => {
 app.use('/api', routes);
 
 // Manejo de rutas no encontradas
-app.use((req, res) => {
+app.use((req: Request, res: Response) => {
   res.status(404).json({
     error: 'Ruta no encontrada',
     path: req.path,
@@ -42,9 +42,9 @@ app.use((req, res) => {
 });
 
 // Manejo de errores
-app.use((err, req, res, next) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
-  res.status(err.status || 500).json({
+  res.status(500).json({
     error: 'Algo salió mal',
     message: process.env.NODE_ENV === 'development' ? err.message : 'Error interno del servidor',
   });
