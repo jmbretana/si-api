@@ -1,15 +1,24 @@
 import 'dotenv/config';
 import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors';
 import connectDB from './src/config/database';
 import routes from './src/routes';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Conectar a MongoDB
 connectDB();
 
+// CORS Configuration - Permite todos los dominios
+const corsOptions = {
+  origin: true, // Acepta cualquier origen
+  credentials: true, // Permite cookies y auth headers
+  optionsSuccessStatus: 200,
+};
+
 // Middleware
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
