@@ -1,13 +1,16 @@
-import { FcModel, IFc } from '../models/fc.model';
+import { FcModel, IFc } from "../models/fc.model";
 
 class FcService {
   async getCurrent(): Promise<IFc | null> {
     return await FcModel.findOne().sort({ updatedAt: -1 });
   }
 
+  async getLast(): Promise<IFc | null> {
+    return await FcModel.findOne().sort({ updatedAt: -1 });
+  }
   async update(data: Partial<IFc>): Promise<IFc> {
     const current = await this.getCurrent();
-    
+
     if (!current) {
       const newFc = new FcModel(data);
       return await newFc.save();
