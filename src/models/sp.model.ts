@@ -1,27 +1,29 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface ISp extends Document {
+  id: number;
   sp: number;
   spSeconds: number;
   updatedAt: Date;
 }
 
-const spSchema = new Schema<ISp>(
-  {
-    sp: {
-      type: Number,
-      required: true,
-      default: 100,
-    },
-    spSeconds: {
-      type: Number,
-      required: true,
-      default: 1,
-    },
+const spSchema = new Schema<ISp>({
+  id: {
+    type: Number,
+    required: true,
   },
-  {
-    timestamps: true,
+  sp: {
+    type: Number,
+    required: true,
   },
-);
+  spSeconds: {
+    type: Number,
+    required: true,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
-export const SpModel = mongoose.model<ISp>('Sp', spSchema);
+export const SpModel = mongoose.model<ISp>("Sp", spSchema);

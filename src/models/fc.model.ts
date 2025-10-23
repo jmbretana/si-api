@@ -1,27 +1,29 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface IFc extends Document {
+  id: string;
   fc: number;
   fcSeconds: number;
   updatedAt: Date;
 }
 
-const fcSchema = new Schema<IFc>(
-  {
-    fc: {
-      type: Number,
-      required: true,
-      default: 100,
-    },
-    fcSeconds: {
-      type: Number,
-      required: true,
-      default: 1,
-    },
+const fcSchema = new Schema<IFc>({
+  id: {
+    type: String,
+    required: true,
   },
-  {
-    timestamps: true,
+  fc: {
+    type: Number,
+    required: true,
   },
-);
+  fcSeconds: {
+    type: Number,
+    required: true,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
-export const FcModel = mongoose.model<IFc>('Fc', fcSchema);
+export const FcModel = mongoose.model<IFc>("Fc", fcSchema);

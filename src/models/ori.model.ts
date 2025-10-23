@@ -1,27 +1,24 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface IOri extends Document {
+  id: number;
   ori: number;
-  oriSeconds: number;
-  updatedAt: Date;
+  seconds: number;
 }
 
-const oriSchema = new Schema<IOri>(
-  {
-    ori: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    oriSeconds: {
-      type: Number,
-      required: true,
-      default: 1,
-    },
+const oriSchema = new Schema<IOri>({
+  id: {
+    type: Number,
+    required: true,
   },
-  {
-    timestamps: true,
+  ori: {
+    type: Number,
+    required: true,
   },
-);
+  seconds: {
+    type: Number,
+    required: true,
+  },
+});
 
-export const OriModel = mongoose.model<IOri>('Ori', oriSchema);
+export const OriModel = mongoose.model<IOri>("Ori", oriSchema);
