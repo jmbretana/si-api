@@ -1,13 +1,17 @@
-import { OriModel, IOri } from '../models/ori.model';
+import { OriModel, IOri } from "../models/ori.model";
 
 class OriService {
   async getCurrent(): Promise<IOri | null> {
     return await OriModel.findOne().sort({ updatedAt: -1 });
   }
 
+  async getLast(): Promise<IOri | null> {
+    return await OriModel.findOne().sort({ updatedAt: -1 });
+  }
+
   async update(data: Partial<IOri>): Promise<IOri> {
     const current = await this.getCurrent();
-    
+
     if (!current) {
       const newOri = new OriModel(data);
       return await newOri.save();

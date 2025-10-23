@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import oriService from '../services/ori.service';
+import { Request, Response, NextFunction } from "express";
+import oriService from "../services/ori.service";
 
 class OriController {
   async getCurrent(req: Request, res: Response, next: NextFunction) {
@@ -8,12 +8,31 @@ class OriController {
 
       if (!ori) {
         return res.status(404).json({
-          error: 'No se encontró registro de ORI',
+          error: "No se encontró registro de ORI",
         });
       }
 
       res.json({
-        message: 'ORI actual obtenida exitosamente',
+        message: "ORI actual obtenida exitosamente",
+        data: ori,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getLast(req: Request, res: Response, next: NextFunction) {
+    try {
+      const ori = await oriService.getLast();
+
+      if (!ori) {
+        return res.status(404).json({
+          error: "No se encontró registro de ORI",
+        });
+      }
+
+      res.json({
+        message: "ORI actual obtenida exitosamente",
         data: ori,
       });
     } catch (error) {
@@ -27,14 +46,14 @@ class OriController {
 
       if (ori === undefined || oriSeconds === undefined) {
         return res.status(400).json({
-          error: 'Los campos ori y oriSeconds son requeridos',
+          error: "Los campos ori y oriSeconds son requeridos",
         });
       }
 
       const updatedOri = await oriService.update({ ori, oriSeconds });
 
       res.json({
-        message: 'ORI actualizada exitosamente',
+        message: "ORI actualizada exitosamente",
         data: updatedOri,
       });
     } catch (error) {
