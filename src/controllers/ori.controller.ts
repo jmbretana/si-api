@@ -21,6 +21,28 @@ class OriController {
     }
   }
 
+  async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { ori, oriSeconds, timeStamp } = req.body;
+
+      if (ori === undefined || oriSeconds === undefined) {
+        return res.status(400).json({
+          error: "Todos los campos son requeridos",
+          required: ["ori", "oriSeconds"],
+        });
+      }
+
+      const newOri = await oriService.create(req.body);
+
+      res.status(201).json({
+        message: "Registro de ORI creado exitosamente",
+        data: newOri,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getLast(req: Request, res: Response, next: NextFunction) {
     try {
       const ori = await oriService.getLast();
@@ -43,6 +65,7 @@ class OriController {
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const { ori, oriSeconds } = req.body;
+      console.log(ori, oriSeconds);
 
       if (ori === undefined || oriSeconds === undefined) {
         return res.status(400).json({

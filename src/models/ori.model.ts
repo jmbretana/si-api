@@ -3,7 +3,8 @@ import mongoose, { Document, Schema } from "mongoose";
 export interface IOri extends Document {
   id: number;
   ori: number;
-  seconds: number;
+  oriSeconds: number;
+  timestamp?: Date;
 }
 
 const oriSchema = new Schema<IOri>({
@@ -15,10 +16,14 @@ const oriSchema = new Schema<IOri>({
     type: Number,
     required: true,
   },
-  seconds: {
+  oriSeconds: {
     type: Number,
     required: true,
   },
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-export const OriModel = mongoose.model<IOri>("Ori", oriSchema);
+export const OriModel = mongoose.model<IOri>("oris", oriSchema);

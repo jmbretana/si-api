@@ -1,41 +1,27 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface IOriHistory extends Document {
-  uuid: string;
   ori: number;
   oriSeconds: number;
-  timeStamp: Date;
   createdAt: Date;
 }
 
-const oriHistorySchema = new Schema<IOriHistory>(
-  {
-    uuid: {
-      type: String,
-      required: true,
-      unique: true,
-      index: true,
-    },
-    ori: {
-      type: Number,
-      required: true,
-    },
-    oriSeconds: {
-      type: Number,
-      required: true,
-    },
-    timeStamp: {
-      type: Date,
-      required: true,
-      index: true,
-    },
+const oriHistorySchema = new Schema<IOriHistory>({
+  ori: {
+    type: Number,
+    required: true,
   },
-  {
-    timestamps: { createdAt: true, updatedAt: false },
+  oriSeconds: {
+    type: Number,
+    required: true,
   },
-);
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
 export const OriHistoryModel = mongoose.model<IOriHistory>(
-  'OriHistory',
-  oriHistorySchema,
+  "ori-histories",
+  oriHistorySchema
 );
