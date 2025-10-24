@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface ISpHistory extends Document {
   uuid: string;
@@ -32,10 +32,10 @@ const spHistorySchema = new Schema<ISpHistory>(
   },
   {
     timestamps: { createdAt: true, updatedAt: false },
-  },
+  }
 );
 
 export const SpHistoryModel = mongoose.model<ISpHistory>(
-  'SpHistory',
-  spHistorySchema,
+  "sp-histories",
+  spHistorySchema
 );

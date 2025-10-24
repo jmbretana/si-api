@@ -40,6 +40,28 @@ class FcController {
     }
   }
 
+  async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { uuid, fc, fcSeconds, timeStamp } = req.body;
+
+      if (!uuid || fc === undefined || fcSeconds === undefined || !timeStamp) {
+        return res.status(400).json({
+          error: "Todos los campos son requeridos",
+          required: ["uuid", "fc", "fcSeconds", "timeStamp"],
+        });
+      }
+
+      const newRecord = await fcService.create(req.body);
+
+      res.status(201).json({
+        message: "Registro de FC creado exitosamente",
+        data: newRecord,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const { fc, fcSeconds } = req.body;

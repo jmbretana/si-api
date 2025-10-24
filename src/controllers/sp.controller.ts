@@ -40,6 +40,29 @@ class SpController {
     }
   }
 
+  async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { uuid, sp, spSeconds, timeStamp } = req.body;
+
+      if (!uuid || sp === undefined || spSeconds === undefined || !timeStamp) {
+        return res.status(400).json({
+          error: "Todos los campos son requeridos",
+          required: ["uuid", "sp", "spSeconds", "timeStamp"],
+        });
+      }
+
+      const newRecord = await spService.create(req.body);
+
+      res.status(201).json({
+        message: "Registro de SP creado exitosamente",
+
+        data: newRecord,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const { sp, spSeconds } = req.body;

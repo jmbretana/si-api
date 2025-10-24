@@ -1,4 +1,5 @@
 import { SpModel, ISp } from "../models/sp.model";
+import { SpHistoryModel, ISpHistory } from "../models/sp-history.model";
 
 class SpService {
   async getCurrent(): Promise<ISp | null> {
@@ -21,8 +22,8 @@ class SpService {
     return await current.save();
   }
 
-  async create(data: Partial<ISp>): Promise<ISp> {
-    const sp = new SpModel(data);
+  async create(data: Partial<ISpHistory>): Promise<ISpHistory> {
+    const sp = new SpHistoryModel(data);
     return await sp.save();
   }
 }

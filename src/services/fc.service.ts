@@ -1,5 +1,5 @@
 import { FcModel, IFc } from "../models/fc.model";
-
+import { FcHistoryModel, IFcHistory } from "../models/fc-history.model";
 class FcService {
   async getCurrent(): Promise<IFc | null> {
     return await FcModel.findOne().sort({ updatedAt: -1 });
@@ -20,8 +20,8 @@ class FcService {
     return await current.save();
   }
 
-  async create(data: Partial<IFc>): Promise<IFc> {
-    const fc = new FcModel(data);
+  async create(data: Partial<IFcHistory>): Promise<IFcHistory> {
+    const fc = new FcHistoryModel(data);
     return await fc.save();
   }
 }
