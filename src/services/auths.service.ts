@@ -31,7 +31,7 @@ async function getLogin(params: any) {
         data: {
           user: {
             id: userData._id,
-            email: userData.email,
+            username: userData.username,
           },
           token: token,
           expiresIn: "24h",
