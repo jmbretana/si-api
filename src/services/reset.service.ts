@@ -3,6 +3,7 @@ import { FcModel, IFc } from "../models/fc.model";
 import { ISp, SpModel } from "../models/sp.model";
 
 import "dotenv/config";
+import { UnifyModel } from "../models/unify-data.model";
 
 class ResetService {
   async reset() {
@@ -16,7 +17,7 @@ class ResetService {
 
     const fcData: Partial<IFc> = {
       id: "A",
-      fc: 1,
+      fc: 60,
       fcSeconds: 1,
       updatedAt: new Date(),
     };
@@ -35,7 +36,28 @@ class ResetService {
     await FcModel.updateOne({}, { $set: { ...fcData, updatedAt: new Date() } });
     await SpModel.updateOne({}, { $set: { ...spData, updatedAt: new Date() } });
 
-    return true;
+    await UnifyModel.updateOne(
+      {},
+      {
+        $set: {
+          ori: oriData.ori,
+          oriSeconds: oriData.oriSeconds,
+          fc: fcData.fc,
+          fcSeconds: fcData.fcSeconds,
+          sp: spData.sp,
+          spSeconds: spData.spSeconds,
+        },
+      }
+    );
+
+    return {
+      data: {
+        ori: oriData,
+        fc: fcData,
+        sp: spData,
+      },
+      status: "success",
+    };
   }
 }
 

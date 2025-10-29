@@ -3,10 +3,11 @@ import resetService from "../services/reset.service";
 
 async function reset(req: Request, res: Response) {
   try {
-    await resetService.reset();
+    const result = await resetService.reset();
 
     res.json({
       success: true,
+      data: result.data,
     });
   } catch (err: any) {
     console.log("Login error:", err);
