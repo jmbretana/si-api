@@ -19,6 +19,6 @@
     "declarationMap": true,
     "types": ["node"]
   },
-  "include": ["src/**/*", "index.ts", "netlify/**/*"],
+  "include": ["src/**/*", "index.ts", "netlify/**/*", "src/models/reset.model.ts"],
   "exclude": ["node_modules", "dist"]
 }
